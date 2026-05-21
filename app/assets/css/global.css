@@ -1,0 +1,538 @@
+/* --- RESET & GLOBAL BASE --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color: #e2e2e2;
+  --text-color: #121214;
+  --text-muted: #626268;
+  --border-color: rgba(0, 0, 0, 0.09);
+  --accent-color: #121214;
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --font-primary: 'DM Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* --- CONTAINER & LAYOUT --- */
+.portfolio-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+  padding: 32px 40px;
+  max-width: 1800px;
+  margin: 0 auto;
+  gap: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* --- HEADER --- */
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 16px;
+  width: 100%;
+}
+
+.portfolio-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.portfolio-header h1:hover {
+  color: var(--text-muted);
+}
+
+.portfolio-tagline {
+  font-size: 0.55rem;
+  text-align: right;
+  line-height: 1.4;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* --- MAIN GRID --- */
+.portfolio-main {
+  display: grid;
+  grid-template-columns: 10vw 1fr 25vw;
+  /* grid-template-columns: 180px 1fr 200px; */
+  gap: 40px;
+  align-items: center;
+  /* Vertically center the works, mockup, and awards columns */
+  flex: 1;
+  min-height: 0;
+  /* Allows elements to size correctly within height-constrained flexboxes */
+  overflow: hidden;
+}
+
+/* --- SIDEBAR LEFT (WORKS) --- */
+.sidebar-works {
+  display: flex;
+  flex-direction: column;
+  /* gap: 24px; */
+}
+
+.section-title {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.works-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  /* gap: -20px; */
+}
+
+.work-item {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 0;
+  transition: var(--transition-smooth);
+  position: relative;
+  width: fit-content;
+}
+
+.work-item::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent-color);
+  transition: var(--transition-smooth);
+}
+
+.work-item:hover,
+.work-item.active {
+  color: var(--accent-color);
+}
+
+.work-item.active::after {
+  width: 100%;
+}
+
+/* --- CENTER SHOWCASE --- */
+.showcase-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Mockup display frame mimicking a premium browser or application window */
+.mockup-frame {
+  width: 120%;
+  max-width: 120%;
+  max-height: 85vh;
+  aspect-ratio: 16 / 9;
+  background: #111112;
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  /* box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25); */
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* Browser top bar */
+.mockup-header {
+  height: 32px;
+  background: #161617;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.mockup-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.mockup-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mockup-dot:nth-child(1) {
+  background: #ff5f56;
+}
+
+.mockup-dot:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.mockup-dot:nth-child(3) {
+  background: #27c93f;
+}
+
+.mockup-address {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 24px;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mockup-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mockup inner slide transition styles */
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide-enter-from {
+  opacity: 0;
+  transform: scale(0.97) translateY(10px);
+}
+
+.slide-leave-to {
+  opacity: 0;
+  transform: scale(1.02) translateY(-10px);
+}
+
+.showcase-media-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dummy-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  gap: 12px;
+}
+
+.placeholder-tag {
+  font-size: 0.65rem;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.placeholder-name {
+  font-size: 2.2rem;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  margin: 4px 0;
+}
+
+.placeholder-hint {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 450px;
+}
+
+.placeholder-hint code {
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #ff9f1c;
+}
+
+/* --- SIDEBAR RIGHT (AWARDS) --- */
+.sidebar-awards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* padding-left: 80px; */
+  /* text-align: right; */
+  max-height: 70vh;
+  overflow-y: auto;
+  /* padding-right: 12px; */
+  /* gap: 16px; */
+}
+
+.sidebar-awards::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-awards::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+.awards-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.award-category {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.award-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.award-details {
+  list-style: none;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  /* gap: 4px; */
+}
+
+.award-details li {
+  position: relative;
+  padding-left: 12px;
+}
+
+.award-details li::before {
+  content: '└';
+  position: absolute;
+  left: 0;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.toggle-awards-btn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  outline: none;
+  width: fit-content;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 2px;
+}
+
+.toggle-awards-btn:hover {
+  border-bottom-color: var(--accent-color);
+}
+
+/* --- FOOTER --- */
+.portfolio-footer {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  gap: 40px;
+  /* border-top: 1px solid var(--border-color); */
+  padding-top: 24px;
+  margin-top: auto;
+  font-size: 0.55rem;
+  line-height: 1.6;
+  align-items: flex-end;
+  /* Align all section content to bottom */
+  width: 100%;
+}
+
+.portfolio-footer .footer-section:nth-child(2) {
+  align-items: left;
+  text-align: left;
+}
+
+.portfolio-footer .footer-section:nth-child(3) {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.portfolio-footer .footer-section:nth-child(3) .social-links {
+  justify-content: flex-end;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-section p {
+  color: var(--text-muted);
+}
+
+.footer-section .footer-label {
+  color: var(--text-color);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.email-link {
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  width: fit-content;
+  padding-bottom: 2px;
+}
+
+.email-link:hover {
+  border-bottom-color: var(--accent-color);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.social-links a {
+  color: var(--text-muted);
+  border-bottom: 1px solid transparent;
+}
+
+.social-links a:hover {
+  color: var(--text-color);
+  border-bottom-color: var(--accent-color);
+}
+
+/* --- RESPONSIVE LAYOUT (MOBILE TIMELINE FALLBACK) --- */
+@media (max-width: 1024px) {
+  .portfolio-app {
+    padding: 24px;
+    gap: 40px;
+  }
+
+  .portfolio-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .portfolio-main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Hide left sidebar works list navigation on mobile since we show sequential view */
+  .sidebar-works {
+    display: none;
+  }
+
+  /* Show mobile-specific chronological list of projects with their mockups */
+  .mobile-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    width: 100%;
+  }
+
+  .mobile-project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+  }
+
+  .mobile-project-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .mobile-project-year {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .portfolio-footer {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .mobile-projects-list {
+    display: none;
+  }
+}
