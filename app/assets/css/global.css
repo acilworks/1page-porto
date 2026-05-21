@@ -54,7 +54,7 @@ a {
   flex-direction: column;
   height: 100vh;
   min-height: 100vh;
-  padding: 32px 40px;
+  padding: 10px 20px;
   max-width: 1800px;
   margin: 0 auto;
   gap: 20px;
@@ -72,19 +72,19 @@ a {
 }
 
 .portfolio-header h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 2.8rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
   cursor: pointer;
-  transition: color 0.3s ease;
+  /* transition: color 0.3s ease; */
 }
 
 .portfolio-header h1:hover {
-  color: var(--text-muted);
+  /* color: var(--text-muted); */
 }
 
 .portfolio-tagline {
-  font-size: 0.55rem;
+  font-size: 0.70rem;
   text-align: right;
   line-height: 1.4;
   color: var(--text-muted);
@@ -94,7 +94,7 @@ a {
 /* --- MAIN GRID --- */
 .portfolio-main {
   display: grid;
-  grid-template-columns: 10vw 1fr 25vw;
+  grid-template-columns: 15vw 1fr 15vw;
   /* grid-template-columns: 180px 1fr 200px; */
   gap: 40px;
   align-items: center;
@@ -113,11 +113,11 @@ a {
 }
 
 .section-title {
-  font-size: 0.65rem;
-  text-transform: uppercase;
+  font-size: 0.70rem;
+  /* text-transform: uppercase; */
   letter-spacing: 0.05em;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-weight: 600;
 }
 
@@ -132,7 +132,7 @@ a {
   font-size: 0.65rem;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 6px 0;
+  padding: 4px 0;
   transition: var(--transition-smooth);
   position: relative;
   width: fit-content;
@@ -173,8 +173,8 @@ a {
 
 /* Mockup display frame mimicking a premium browser or application window */
 .mockup-frame {
-  width: 120%;
-  max-width: 120%;
+  width: 100%;
+  max-width: 100%;
   max-height: 85vh;
   aspect-ratio: 16 / 9;
   background: #111112;
@@ -326,7 +326,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  /* padding-left: 80px; */
+  padding-left: 10px;
   /* text-align: right; */
   max-height: 70vh;
   overflow-y: auto;
@@ -404,30 +404,30 @@ a {
 /* --- FOOTER --- */
 .portfolio-footer {
   display: grid;
-  grid-template-columns: 220px 1fr 280px;
+  grid-template-columns: 220px 1fr 220px;
   gap: 40px;
   /* border-top: 1px solid var(--border-color); */
   padding-top: 24px;
   margin-top: auto;
-  font-size: 0.55rem;
-  line-height: 1.6;
+  font-size: 0.65rem;
+  /* line-height: 1.6; */
   align-items: flex-end;
   /* Align all section content to bottom */
   width: 100%;
 }
 
-.portfolio-footer .footer-section:nth-child(2) {
+.portfolio-footer .footer-section:nth-child(1) {
   align-items: left;
   text-align: left;
 }
 
-.portfolio-footer .footer-section:nth-child(3) {
-  align-items: flex-end;
-  text-align: right;
+.portfolio-footer .footer-section:nth-child(2) {
+  align-items: center;
+  text-align: center;
 }
 
 .portfolio-footer .footer-section:nth-child(3) .social-links {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .footer-section {
@@ -443,15 +443,20 @@ a {
 .footer-section .footer-label {
   color: var(--text-color);
   font-weight: 600;
-  margin-bottom: 4px;
+  line-height: 1.6;
+  /* margin-bottom: 4px; */
+
 }
 
 .email-link {
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.70rem;
   color: var(--text-color);
   border-bottom: 1px solid var(--border-color);
   width: fit-content;
   padding-bottom: 2px;
+  line-height: 1.6;
+
 }
 
 .email-link:hover {
@@ -461,12 +466,12 @@ a {
 .social-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 5px;
 }
 
 .social-links a {
   color: var(--text-muted);
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .social-links a:hover {
@@ -503,15 +508,17 @@ a {
 
   .portfolio-app {
     padding: 12px;
-    gap: 0;
-    /* gap: 20px; */
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
+    gap: 12px;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .portfolio-header {
-    /* padding-bottom: 8px; */
+    padding-bottom: 1px;
   }
 
   /* .portfolio-tagline {
@@ -519,7 +526,7 @@ a {
   } */
 
   .portfolio-header h1 {
-    font-size: 19vw;
+    font-size: 15.7vw;
     font-weight: 500;
     letter-spacing: -0.05em;
     line-height: 1;
@@ -533,7 +540,7 @@ a {
     gap: 20px;
     align-items: start;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
   }
 
   .mobile-works-column {
@@ -606,21 +613,29 @@ a {
   /* Main frame alignment */
   .portfolio-main {
     grid-template-columns: 1fr;
-    gap: 20px;
-    overflow: visible;
-    height: auto;
-    min-height: auto;
-    flex: none;
+    gap: 12px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .showcase-container {
     width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .mockup-frame {
     width: 100%;
     max-width: 100%;
-    max-height: 50vh;
+    max-height: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
   }
 
@@ -628,7 +643,7 @@ a {
     text-align: center;
     font-size: 0.55rem;
     color: var(--text-muted);
-    margin-top: 10px;
+    margin-top: 4px;
     font-weight: 500;
   }
 
@@ -638,20 +653,19 @@ a {
     flex-direction: column;
     text-align: center !important;
     gap: 4px;
-    margin: 10px 0 10px 0 !important;
+    margin: 4px 0 !important;
     font-size: 0.65rem;
     width: 100%;
   }
 
   .mobile-hire-me .hire-me-label {
     color: var(--text-muted);
-    font-weight: 500;
-
+    font-weight: 600;
   }
 
   .mobile-hire-me .email-link {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 400;
     border-bottom: 1px solid var(--border-color);
   }
 
@@ -659,10 +673,8 @@ a {
   .portfolio-footer {
     grid-template-columns: 1.5fr 1fr;
     font-size: 0.75rem;
-    /* gap: 2px; */
-    padding-top: 24px;
-    /* border-top: 1px solid var(--border-color); */
-    margin-top: 20px;
+    padding-top: 12px;
+    margin-top: 0px;
   }
 
   .portfolio-footer .footer-section:nth-child(1) {
@@ -671,14 +683,16 @@ a {
 
   .portfolio-footer .footer-section:nth-child(3) {
     grid-column: 2;
-
+    /* align-items: flex-end; */
+    /* text-align: right; */
   }
 
-  .social-links {
+  .portfolio-footer .social-links {
     font-size: 0.65rem;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+
   }
 
   .social-links a {

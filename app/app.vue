@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 
 // Text definitions for ScrambleText effect
-const nameText = 'Ahmad Arief'
+const nameText = 'Ahmad Arief H.'
 const displayName = ref(nameText)
 
 const taglineLine1 = "It Ain't Much But"
@@ -97,9 +97,9 @@ const selectProject = (index) => {
 
 onMounted(() => {
   // Cascaded scramble effect on mount
-  scrambleEffect(nameText, displayName, 1.4, 0.1)
+  scrambleEffect(nameText, displayName, 3.5, 0.3)
   scrambleEffect(taglineLine1, displayTagline1, 1.0, 0.3)
-  scrambleEffect(taglineLine2, displayTagline2, 1.0, 0.5)
+  scrambleEffect(taglineLine2, displayTagline2, 1.0, 0.3)
   
   // Start project autoplay
   startAutoplay()
@@ -114,47 +114,47 @@ onUnmounted(() => {
 // Anda bisa mengubah isi, tipe media (image/video/placeholder), dan link aset di sini.
 const projects = [
   { 
-    name: 'TrueKind', 
-    url: 'truekind.co', 
-    year: '2025',
+    name: 'Kibardjaya', 
+    url: 'kibardjaya.com', 
+    year: '2026',
     mediaType: 'placeholder', // Ubah menjadi 'image' atau 'video' untuk menggunakan aset asli
-    mediaUrl: '/images/truekind-preview.jpg', // Path file gambar/video Anda di folder public/
+    mediaUrl: '/images/kibardjaya-preview.jpg', // Path file gambar/video Anda di folder public/
     color: 'linear-gradient(135deg, #1f2c23 0%, #0d140f 100%)' // Gradient warna placeholder
   },
   { 
-    name: 'ELEMENTIS', 
-    url: 'elementis.io', 
-    year: '2025',
+    name: 'LMS TE', 
+    url: 'lms.trilogikaedutama.id', 
+    year: '2026',
     mediaType: 'placeholder', 
     mediaUrl: '', 
     color: 'linear-gradient(135deg, #0e2a2a 0%, #041212 100%)'
   },
   { 
-    name: 'JR Studio', 
-    url: 'jrstudio.com', 
-    year: '2025',
+    name: 'Trilogika Edutama', 
+    url: 'trilogikaedutama.id', 
+    year: '2026',
     mediaType: 'placeholder', 
     mediaUrl: '', 
     color: 'linear-gradient(135deg, #222222 0%, #0a0a0a 100%)'
   },
   { 
-    name: 'FIFTYSEVEN', 
-    url: 'fiftyseven.net', 
-    year: '2024',
+    name: 'LSP Parsi', 
+    url: 'lsp.trilogikaedutama.id', 
+    year: '2026',
     mediaType: 'placeholder', 
     mediaUrl: '', 
     color: 'linear-gradient(135deg, #3d1b0d 0%, #170701 100%)'
   },
   { 
-    name: 'North of Zero', 
-    url: 'northofzero.no', 
+    name: 'Simico', 
+    url: 'simico.co.id', 
     year: '2024',
     mediaType: 'placeholder', 
     mediaUrl: '', 
     color: 'linear-gradient(135deg, #1e2f3d 0%, #0c151c 100%)'
   },
   { 
-    name: 'Neurodiversity', 
+    name: 'Matador App', 
     url: 'neurodiversity.community', 
     year: '2024',
     mediaType: 'placeholder', 
@@ -162,21 +162,21 @@ const projects = [
     color: 'linear-gradient(135deg, #321e42 0%, #150a1f 100%)'
   },
   { 
-    name: 'Fine Dine Club', 
+    name: 'Raja App', 
     url: 'finedine.club', 
     year: '2023',
     mediaType: 'placeholder', 
     mediaUrl: '', 
     color: 'linear-gradient(135deg, #29241b 0%, #120f0a 100%)'
   },
-  { 
-    name: 'Theo Guinec', 
-    url: 'theoguinec.fr', 
-    year: '2023',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
-    color: 'linear-gradient(135deg, #3d3b37 0%, #1c1b19 100%)'
-  }
+  // { 
+  //   name: 'Theo Guinec', 
+  //   url: 'theoguinec.fr', 
+  //   year: '2023',
+  //   mediaType: 'placeholder', 
+  //   mediaUrl: '', 
+  //   color: 'linear-gradient(135deg, #3d3b37 0%, #1c1b19 100%)'
+  // }
 ]
 
 // Project aktif yang sedang di-hover (default ELEMENTIS di index 1)
@@ -367,12 +367,12 @@ const visibleAwards = computed(() => {
       </section>
 
       <!-- Mobile-only Hire Me CTA (Renders below mockup on mobile) -->
-      <section class="mobile-hire-me mobile-only">
+      <!-- <section class="mobile-hire-me mobile-only">
         <span class="hire-me-label">Hire Me :)</span><br>
         <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
           ahmadariefharwoko@gmail.com
         </a>
-      </section>
+      </section> -->
 
       <!-- Kolom Kanan: Daftar Penghargaan (Awards) (Desktop Only) -->
       <section class="sidebar-awards desktop-only">
@@ -397,13 +397,20 @@ const visibleAwards = computed(() => {
     </main>
 
     <!-- Footer Utama -->
+     <section class="mobile-hire-me mobile-only">
+        <span class="hire-me-label">Hire Me :)</span><br>
+        <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
+          ahmadariefharwoko@gmail.com
+        </a>
+      </section>
     <footer class="portfolio-footer">
+      
       <div class="footer-section">
         <span class="footer-label">About</span>
         <p>Independent creative developer, based in Indonesia. Focus on building websites with motion and interaction.</p>
       </div>
       <div class="footer-section desktop-only">
-        <span class="footer-label">Hire Me :)</span>
+        <span class="footer-label">Hire Me :)</span><br>
         <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
           ahmadariefharwoko@gmail.com
         </a>
