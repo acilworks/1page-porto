@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 
 // Text definitions for ScrambleText effect
-const nameText = 'AHMAD ARIEF HARWOKO'
+const nameText = 'Ahmad Arief'
 const displayName = ref(nameText)
 
 const taglineLine1 = "It Ain't Much But"
@@ -12,7 +12,7 @@ const displayTagline1 = ref(taglineLine1)
 const displayTagline2 = ref(taglineLine2)
 
 // Custom high-performance scramble effect using GSAP core tweening
-const scrambleEffect = (text, targetRef, duration = 0.2, delay = 0) => {
+const scrambleEffect = (text, targetRef, duration = 0.02, delay = 0) => {
   const chars = "BCDFGHJKLMNPQRSTVWXYZ"
   // const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~}{|:?><-="
   const obj = { progress: 0 }
@@ -52,11 +52,61 @@ const triggerNameScramble = () => {
   scrambleEffect(nameText, displayName, 1.0)
 }
 
+// Autoplay & Loading Underline State
+const progressWidth = ref(0)
+const isHovered = ref(false)
+const nextWorkIndex = computed(() => (activeWorkIndex.value + 1) % projects.length)
+let autoplayTween = null
+
+const startAutoplay = () => {
+  if (autoplayTween) autoplayTween.kill()
+  progressWidth.value = 0
+  
+  autoplayTween = gsap.to(progressWidth, {
+    value: 100,
+    duration: 5,
+    ease: "none",
+    onComplete: () => {
+      activeWorkIndex.value = nextWorkIndex.value
+      startAutoplay()
+    }
+  })
+}
+
+const pauseAndSelect = (index) => {
+  isHovered.value = true
+  if (autoplayTween) autoplayTween.kill()
+  activeWorkIndex.value = index
+  progressWidth.value = 100
+}
+
+const resumeAutoplay = () => {
+  isHovered.value = false
+  startAutoplay()
+}
+
+const selectProject = (index) => {
+  activeWorkIndex.value = index
+  if (isHovered.value) {
+    if (autoplayTween) autoplayTween.kill()
+    progressWidth.value = 100
+  } else {
+    startAutoplay()
+  }
+}
+
 onMounted(() => {
   // Cascaded scramble effect on mount
   scrambleEffect(nameText, displayName, 1.4, 0.1)
   scrambleEffect(taglineLine1, displayTagline1, 1.0, 0.3)
   scrambleEffect(taglineLine2, displayTagline2, 1.0, 0.5)
+  
+  // Start project autoplay
+  startAutoplay()
+})
+
+onUnmounted(() => {
+  if (autoplayTween) autoplayTween.kill()
 })
 
 
@@ -177,6 +227,9 @@ const awards = [
 // State list awards terbuka/tertutup
 const showAllAwards = ref(false)
 
+// State modal awards untuk mobile
+const showMobileAwardsModal = ref(false)
+
 // Data awards yang terlihat sesuai state toggle
 const visibleAwards = computed(() => {
   return showAllAwards.value ? awards : awards.filter(a => !a.extra)
@@ -188,41 +241,86 @@ const visibleAwards = computed(() => {
     <!-- Header Utama -->
     <header class="portfolio-header">
       <h1 @mouseenter="triggerNameScramble" class="scrambler-title">{{ displayName }}</h1>
-      <div class="portfolio-tagline">
+      <div class="portfolio-tagline desktop-only">
         {{ displayTagline1 }}<br>{{ displayTagline2 }}
       </div>
     </header>
+
+    <!-- Mobile Info Grid: Renders below the title on mobile, hidden on desktop -->
+    <div class="mobile-sub-grid mobile-only">
+      <div class="mobile-works-column">
+        <h2 class="section-title">Selected Works ({{ projects.length }})</h2>
+        <ul class="works-list-mobile">
+          <li
+            v-for="(project, index) in projects"
+            :key="'mob-' + project.name"
+            class="work-item"
+            :class="{ 
+              active: activeWorkIndex === index,
+              'loading-next': nextWorkIndex === index && !isHovered
+            }"
+            @click="selectProject(index)"
+          >
+            {{ project.name }}
+            <div 
+              class="work-item-progress" 
+              :style="{ 
+                width: activeWorkIndex === index 
+                  ? '100%' 
+                  : (nextWorkIndex === index && !isHovered) 
+                    ? progressWidth + '%' 
+                    : '0%' 
+              }"
+            ></div>
+          </li>
+        </ul>
+      </div>
+      <div class="mobile-tagline-column">
+        <div class="portfolio-tagline">
+          {{ displayTagline1 }}<br>{{ displayTagline2 }}
+        </div>
+        <a href="#" class="mobile-awards-trigger" @click.prevent="showMobileAwardsModal = true">
+          Awards & Recognition
+        </a>
+      </div>
+    </div>
 
     <!-- Main Content Layout -->
     <main class="portfolio-main">
       
       <!-- Kolom Kiri: Daftar Project (Desktop Only) -->
-      <section class="sidebar-works">
+      <section class="sidebar-works desktop-only">
         <h2 class="section-title">Selected Works ({{ projects.length }})</h2>
-        <ul class="works-list">
+        <ul class="works-list" @mouseleave="resumeAutoplay">
           <li
             v-for="(project, index) in projects"
             :key="project.name"
             class="work-item"
-            :class="{ active: activeWorkIndex === index }"
-            @mouseenter="activeWorkIndex = index"
+            :class="{ 
+              active: activeWorkIndex === index,
+              'loading-next': nextWorkIndex === index && !isHovered
+            }"
+            @mouseenter="pauseAndSelect(index)"
+            @click="selectProject(index)"
           >
             {{ project.name }}
+            <div 
+              class="work-item-progress" 
+              :style="{ 
+                width: activeWorkIndex === index 
+                  ? '100%' 
+                  : (nextWorkIndex === index && !isHovered) 
+                    ? progressWidth + '%' 
+                    : '0%' 
+              }"
+            ></div>
           </li>
         </ul>
       </section>
 
-      <!-- Kolom Tengah: Visual Showcase (Desktop Only) -->
-      <section class="showcase-container desktop-only">
+      <!-- Kolom Tengah: Visual Showcase (Both Desktop & Mobile) -->
+      <section class="showcase-container">
         <div class="mockup-frame">
-          <!-- <div class="mockup-header">
-            <div class="mockup-dots">
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-            </div>
-            <div class="mockup-address">{{ activeProject.url }}</div>
-          </div> -->
           <div class="mockup-body">
             <Transition name="slide" mode="out-in">
               <div :key="activeProject.name" class="showcase-media-wrapper">
@@ -264,62 +362,20 @@ const visibleAwards = computed(() => {
             </Transition>
           </div>
         </div>
+        <!-- Click hint under showcase (mobile only) -->
+        <p class="click-hint mobile-only">(Click Image To Visit Site)</p>
       </section>
 
-      <!-- Tampilan Mengalir Vertikal Khusus Mobile (Mobile Only) -->
-      <section class="mobile-projects-list">
-        <h2 class="section-title">Selected Works ({{ projects.length }})</h2>
-        <div
-          v-for="project in projects"
-          :key="'mobile-' + project.name"
-          class="mobile-project-card"
-        >
-          <div class="mobile-project-info">
-            <h3 class="mobile-project-title">{{ project.name }}</h3>
-            <span class="mobile-project-year">{{ project.year }}</span>
-          </div>
-          <div class="mockup-frame">
-            <div class="mockup-header">
-              <div class="mockup-dots">
-                <span class="mockup-dot"></span>
-                <span class="mockup-dot"></span>
-                <span class="mockup-dot"></span>
-              </div>
-              <div class="mockup-address">{{ project.url }}</div>
-            </div>
-            <div class="mockup-body">
-              <div class="showcase-media-wrapper">
-                <img 
-                  v-if="project.mediaType === 'image'" 
-                  :src="project.mediaUrl" 
-                  class="showcase-media" 
-                  alt="Project Preview" 
-                />
-                <video 
-                  v-else-if="project.mediaType === 'video'" 
-                  :src="project.mediaUrl" 
-                  class="showcase-media" 
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline
-                ></video>
-                <div 
-                  v-else 
-                  class="dummy-placeholder" 
-                  :style="{ background: project.color }"
-                >
-                  <div class="placeholder-tag">DUMMY PREVIEW</div>
-                  <h3 class="placeholder-name" style="font-size: 1.4rem;">{{ project.name }}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Mobile-only Hire Me CTA (Renders below mockup on mobile) -->
+      <section class="mobile-hire-me mobile-only">
+        <span class="hire-me-label">Hire Me :)</span><br>
+        <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
+          ahmadariefharwoko@gmail.com
+        </a>
       </section>
 
-      <!-- Kolom Kanan: Daftar Penghargaan (Awards) -->
-      <section class="sidebar-awards">
+      <!-- Kolom Kanan: Daftar Penghargaan (Awards) (Desktop Only) -->
+      <section class="sidebar-awards desktop-only">
         <h2 class="section-title">Awards & Recognition (23)</h2>
         <div class="awards-list">
           <div
@@ -346,7 +402,7 @@ const visibleAwards = computed(() => {
         <span class="footer-label">About</span>
         <p>Independent creative developer, based in Indonesia. Focus on building websites with motion and interaction.</p>
       </div>
-      <div class="footer-section">
+      <div class="footer-section desktop-only">
         <span class="footer-label">Hire Me :)</span>
         <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
           ahmadariefharwoko@gmail.com
@@ -363,6 +419,32 @@ const visibleAwards = computed(() => {
         </div>
       </div>
     </footer>
+
+    <!-- Mobile Awards Modal Overlay -->
+    <Transition name="slide-up">
+      <div v-if="showMobileAwardsModal" class="awards-modal-overlay" @click="showMobileAwardsModal = false">
+        <div class="awards-modal-content" @click.stop>
+          <div class="modal-header">
+            <h2 class="section-title">Awards & Recognition (23)</h2>
+            <button class="close-modal-btn" @click="showMobileAwardsModal = false">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="awards-list-modal">
+              <div
+                v-for="award in awards"
+                :key="'modal-' + award.category"
+                class="award-category"
+              >
+                <h3 class="award-title">{{ award.category }}</h3>
+                <ul class="award-details">
+                  <li v-for="item in award.items" :key="item">{{ item }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 

@@ -12,7 +12,7 @@
   --border-color: rgba(0, 0, 0, 0.09);
   --accent-color: #121214;
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --font-primary: 'DM Mono', monospace;
+  --font-primary: 'Neue Montreal', sans-serif;
 }
 
 body {
@@ -138,15 +138,16 @@ a {
   width: fit-content;
 }
 
-.work-item::after {
-  content: '';
+.work-item-progress {
   position: absolute;
   bottom: 2px;
   left: 0;
-  width: 0;
+  width: 0%;
   height: 1px;
   background-color: var(--accent-color);
-  transition: var(--transition-smooth);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, width 0.3s ease;
 }
 
 .work-item:hover,
@@ -154,8 +155,10 @@ a {
   color: var(--accent-color);
 }
 
-.work-item.active::after {
-  width: 100%;
+.work-item.active .work-item-progress,
+.work-item.loading-next .work-item-progress {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 /* --- CENTER SHOWCASE --- */
@@ -471,68 +474,333 @@ a {
   border-bottom-color: var(--accent-color);
 }
 
-/* --- RESPONSIVE LAYOUT (MOBILE TIMELINE FALLBACK) --- */
+/* --- DISPLAY UTILITIES --- */
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: block;
+}
+
+/* --- RESPONSIVE LAYOUT --- */
 @media (max-width: 1024px) {
-  .portfolio-app {
-    padding: 24px;
-    gap: 40px;
+  .mobile-only {
+    display: block !important;
   }
+
+  .mobile-only.flex {
+    display: flex !important;
+  }
+
+  .mobile-only.grid {
+    display: grid !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .portfolio-app {
+    padding: 12px;
+    gap: 0;
+    /* gap: 20px; */
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .portfolio-header {
+    /* padding-bottom: 8px; */
+  }
+
+  /* .portfolio-tagline {
+    font-size: 18vw;
+  } */
 
   .portfolio-header h1 {
-    font-size: 1.8rem;
+    font-size: 19vw;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  .portfolio-main {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  /* Sub-header info grid underneath title on mobile */
+  .mobile-sub-grid {
+    display: grid !important;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 20px;
+    align-items: start;
+    width: 100%;
+    margin-bottom: 24px;
   }
 
-  /* Hide left sidebar works list navigation on mobile since we show sequential view */
-  .sidebar-works {
-    display: none;
-  }
-
-  /* Show mobile-specific chronological list of projects with their mockups */
-  .mobile-projects-list {
+  .mobile-works-column {
     display: flex;
     flex-direction: column;
-    gap: 48px;
     width: 100%;
   }
 
-  .mobile-project-card {
+  /* Selected Works in 2 columns */
+  .works-list-mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .works-list-mobile .work-item {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px 0;
+    transition: var(--transition-smooth);
+    position: relative;
+    width: fit-content;
+  }
+
+  .works-list-mobile .work-item-progress {
+    bottom: 0px;
+  }
+
+  .works-list-mobile .work-item.active {
+    color: var(--accent-color);
+  }
+
+  /* Tagline & Awards Trigger on Mobile */
+  .mobile-tagline-column {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-end;
+    text-align: right;
+    width: 100%;
   }
 
-  .mobile-project-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 12px;
-  }
-
-  .mobile-project-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
-
-  .mobile-project-year {
-    font-size: 0.9rem;
+  .mobile-tagline-column .portfolio-tagline {
+    font-size: 0.65rem;
+    line-height: 1.4;
     color: var(--text-muted);
+    font-weight: 500;
   }
 
-  .portfolio-footer {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding-top: 32px;
+  .mobile-awards-trigger {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--text-color);
+    width: fit-content;
+    padding-bottom: 2px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
   }
+
+  .mobile-awards-trigger:hover {
+    color: var(--text-muted);
+    border-bottom-color: var(--text-muted);
+  }
+
+  /* Main frame alignment */
+  .portfolio-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    overflow: visible;
+    height: auto;
+    min-height: auto;
+    flex: none;
+  }
+
+  .showcase-container {
+    width: 100%;
+  }
+
+  .mockup-frame {
+    width: 100%;
+    max-width: 100%;
+    max-height: 50vh;
+    aspect-ratio: 16 / 9;
+  }
+
+  .click-hint {
+    text-align: center;
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  /* Centered Hire Me section under mockup */
+  .mobile-hire-me {
+    display: flex;
+    flex-direction: column;
+    text-align: center !important;
+    gap: 4px;
+    margin: 10px 0 10px 0 !important;
+    font-size: 0.65rem;
+    width: 100%;
+  }
+
+  .mobile-hire-me .hire-me-label {
+    color: var(--text-muted);
+    font-weight: 500;
+
+  }
+
+  .mobile-hire-me .email-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Split Footer layout */
+  .portfolio-footer {
+    grid-template-columns: 1.5fr 1fr;
+    font-size: 0.75rem;
+    /* gap: 2px; */
+    padding-top: 24px;
+    /* border-top: 1px solid var(--border-color); */
+    margin-top: 20px;
+  }
+
+  .portfolio-footer .footer-section:nth-child(1) {
+    grid-column: 1;
+  }
+
+  .portfolio-footer .footer-section:nth-child(3) {
+    grid-column: 2;
+
+  }
+
+  .social-links {
+    font-size: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .social-links a {
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+  }
+
 }
 
-@media (min-width: 1025px) {
-  .mobile-projects-list {
-    display: none;
-  }
+/* --- AWARDS MODAL OVERLAY (MOBILE) --- */
+.awards-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.awards-modal-content {
+  background-color: #111112;
+  width: 100%;
+  max-height: 80vh;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  color: #e2e2e2;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+}
+
+.modal-header .section-title {
+  margin-bottom: 0;
+  color: #ffffff;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 16px 0;
+}
+
+.awards-list-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.awards-list-modal .award-category {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.awards-list-modal .award-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.awards-list-modal .award-details {
+  list-style: none;
+  font-size: 0.65rem;
+  color: #a0a0a5;
+  display: flex;
+  flex-direction: column;
+}
+
+.awards-list-modal .award-details li {
+  position: relative;
+  padding-left: 12px;
+}
+
+.awards-list-modal .award-details li::before {
+  content: '└';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* Transition styles for Vue */
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-from .awards-modal-content {
+  transform: translateY(100%);
+}
+
+.slide-up-leave-to .awards-modal-content {
+  transform: translateY(100%);
 }
