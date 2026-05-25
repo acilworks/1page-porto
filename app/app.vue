@@ -64,7 +64,7 @@ const startAutoplay = () => {
   
   autoplayTween = gsap.to(progressWidth, {
     value: 100,
-    duration: 5,
+    duration: 15,
     ease: "none",
     onComplete: () => {
       activeWorkIndex.value = nextWorkIndex.value
@@ -117,8 +117,8 @@ const projects = [
     name: 'Kibardjaya', 
     url: 'kibardjaya.com', 
     year: '2026',
-    mediaType: 'placeholder', // Ubah menjadi 'image' atau 'video' untuk menggunakan aset asli
-    mediaUrl: '/images/kibardjaya-preview.jpg', // Path file gambar/video Anda di folder public/
+    mediaType: 'video', // Ubah menjadi 'image' atau 'video' untuk menggunakan aset asli
+    mediaUrl: '/videos/wm-rem-kibardjaya.mp4', // Path file gambar/video Anda di folder public/
     color: 'linear-gradient(135deg, #1f2c23 0%, #0d140f 100%)' // Gradient warna placeholder
   },
   { 
