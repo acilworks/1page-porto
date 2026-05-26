@@ -103,6 +103,12 @@ onMounted(() => {
   
   // Start project autoplay
   startAutoplay()
+
+  // Initialize quickTo for badge following
+  if (badgeRef.value) {
+    xTo = gsap.quickTo(badgeRef.value, "x", { duration: 0.35, ease: "power3.out" })
+    yTo = gsap.quickTo(badgeRef.value, "y", { duration: 0.35, ease: "power3.out" })
+  }
 })
 
 onUnmounted(() => {
@@ -234,6 +240,32 @@ const showMobileAwardsModal = ref(false)
 const visibleAwards = computed(() => {
   return showAllAwards.value ? awards : awards.filter(a => !a.extra)
 })
+
+// Coordinates tracking for the cursor-following badge
+const badgeRef = ref(null)
+let xTo = null
+let yTo = null
+let hasMoved = false
+
+const handleMouseMove = (event) => {
+  const rect = event.currentTarget.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  
+  if (!hasMoved) {
+    gsap.set(badgeRef.value, { x, y })
+    hasMoved = true
+  } else {
+    if (xTo && yTo) {
+      xTo(x)
+      yTo(y)
+    }
+  }
+}
+
+const handleMouseLeave = () => {
+  hasMoved = false
+}
 </script>
 
 <template>
@@ -321,9 +353,14 @@ const visibleAwards = computed(() => {
       <!-- Kolom Tengah: Visual Showcase (Both Desktop & Mobile) -->
       <section class="showcase-container">
         <div class="mockup-frame">
-          <div class="mockup-body">
+          <div class="mockup-body" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
             <Transition name="slide" mode="out-in">
-              <div :key="activeProject.name" class="showcase-media-wrapper">
+              <a 
+                :key="activeProject.name" 
+                :href="'https://' + activeProject.url" 
+                target="_blank" 
+                class="showcase-media-wrapper"
+              >
                 
                 <!-- Opsi 1: Jika tipenya Gambar -->
                 <img 
@@ -358,8 +395,19 @@ const visibleAwards = computed(() => {
                   </p>
                 </div>
 
-              </div>
+              </a>
             </Transition>
+
+            <!-- Visit Site Badge Wrapper (GSAP positioned) -->
+            <div 
+              ref="badgeRef"
+              class="visit-site-badge-container"
+            >
+              <!-- Visit Site Badge Inner -->
+              <span class="visit-site-badge">
+                Visit Site ↗
+              </span>
+            </div>
           </div>
         </div>
         <!-- Click hint under showcase (mobile only) -->

@@ -263,10 +263,63 @@ a {
 }
 
 .showcase-media-wrapper {
+  display: block;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
+}
+
+.visit-site-badge-container {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.visit-site-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transform: translate(-50%, -50%) scale(1);
+  background-color: #ffffff;
+  color: #121214;
+  padding: 4px 6px;
+  font-family: var(--font-primary);
+  font-size: 0.55rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* Transition for exiting: fade out and clip path wipe from left to right */
+  opacity: 0;
+  clip-path: inset(0 0 0 100%);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    clip-path 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When hover on the container, show the badge smoothly */
+.mockup-frame:hover .visit-site-badge {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transform: translate(-50%, -50%) scale(1.05);
+  /* On enter, instantly unclip and just fade in */
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    clip-path 0s,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slightly shrink on click */
+.mockup-frame:active .visit-site-badge {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+@media (max-width: 1024px) {
+  .visit-site-badge-container {
+    display: none !important;
+  }
 }
 
 .showcase-media {
