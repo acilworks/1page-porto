@@ -605,7 +605,7 @@ a {
   /* Selected Works in 2 columns */
   .works-list-mobile {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     width: 100%;
     list-style: none;
     padding: 0;
@@ -613,7 +613,7 @@ a {
   }
 
   .works-list-mobile .work-item {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     cursor: pointer;
     padding: 4px 0;
@@ -758,116 +758,147 @@ a {
 /* --- AWARDS MODAL OVERLAY (MOBILE) --- */
 .awards-modal-overlay {
   position: fixed;
-  top: 0;
+  top: 10vh;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  height: 100dvh;
+  background-color: var(--bg-color);
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
   z-index: 1000;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .awards-modal-content {
-  background-color: #111112;
+  background-color: transparent;
   width: 100%;
-  max-height: 80vh;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: none;
-  padding: 24px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  color: #e2e2e2;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.modal-header {
+.modal-header-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.modal-title {
+  font-size: 15.7vw;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--text-color);
+  margin: 0;
+  cursor: pointer;
+}
+
+.modal-subheader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 16px;
+  align-items: baseline;
+  width: 100%;
+  margin-top: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
 }
 
-.modal-header .section-title {
-  margin-bottom: 0;
-  color: #ffffff;
+.modal-section-title {
+  font-size: 0.70rem;
+  letter-spacing: 0.05em;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 .close-modal-btn {
   background: none;
   border: none;
-  color: #ffffff;
-  font-size: 1.8rem;
-  line-height: 1;
+  color: var(--text-color);
+  font-size: 0.70rem;
+  font-weight: 500;
+  text-decoration: underline;
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0;
+  font-family: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  opacity: 0.7;
 }
 
 .modal-body {
   overflow-y: auto;
   flex: 1;
   padding: 16px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .awards-list-modal {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .awards-list-modal .award-category {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .awards-list-modal .award-title {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-color);
 }
 
 .awards-list-modal .award-details {
   list-style: none;
-  font-size: 0.65rem;
-  color: #a0a0a5;
+  font-size: 0.75rem;
+  color: var(--text-muted);
   display: flex;
   flex-direction: column;
-}
-
-.awards-list-modal .award-details li {
-  position: relative;
+  gap: 4px;
   padding-left: 12px;
 }
 
-.awards-list-modal .award-details li::before {
-  content: '└';
-  position: absolute;
-  left: 0;
-  color: rgba(255, 255, 255, 0.15);
+.awards-list-modal .award-details li {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.awards-list-modal .award-details li .elbow-char {
+  color: #8e8e93;
+  margin-right: 6px;
+  flex-shrink: 0;
 }
 
 /* Transition styles for Vue */
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: opacity 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slide-up-enter-from,
 .slide-up-leave-to {
-  opacity: 0;
-}
-
-.slide-up-enter-from .awards-modal-content {
-  transform: translateY(100%);
-}
-
-.slide-up-leave-to .awards-modal-content {
   transform: translateY(100%);
 }

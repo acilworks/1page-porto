@@ -200,7 +200,7 @@ const awards = [
   },
   {
     category: 'Awwwards',
-    items: ['2x Site of the Day', '2x Developer Award', '1x Young Jury'],
+    items: ['2x Site of the Day', '2x Developer Award', 'Young Jury'],
     extra: false
   },
   {
@@ -220,12 +220,12 @@ const awards = [
   },
   {
     category: 'Codrops',
-    items: ['2x Webzibition', '1x Developer Spotlight'],
+    items: ['2x Webzibition', 'Developer Spotlight'],
     extra: true
   },
   {
-    category: 'Muzi',
-    items: ['1x Picks Honor', '1x LinkedIn Golden List'],
+    category: 'Muzli',
+    items: ['1x Picks Honor', 'LinkedIn Golden List'],
     extra: true
   }
 ]
@@ -477,9 +477,12 @@ const handleMouseLeave = () => {
     <Transition name="slide-up">
       <div v-if="showMobileAwardsModal" class="awards-modal-overlay" @click="showMobileAwardsModal = false">
         <div class="awards-modal-content" @click.stop>
-          <div class="modal-header">
-            <h2 class="section-title">Awards & Recognition (23)</h2>
-            <button class="close-modal-btn" @click="showMobileAwardsModal = false">&times;</button>
+          <div class="modal-header-container">
+            <!-- <h1 class="modal-title" @click="triggerNameScramble">{{ displayName }}</h1> -->
+            <div class="modal-subheader">
+              <span class="modal-section-title">Awards & Recognition (23)</span>
+              <button class="close-modal-btn" @click="showMobileAwardsModal = false">Close</button>
+            </div>
           </div>
           <div class="modal-body">
             <div class="awards-list-modal">
@@ -490,7 +493,10 @@ const handleMouseLeave = () => {
               >
                 <h3 class="award-title">{{ award.category }}</h3>
                 <ul class="award-details">
-                  <li v-for="item in award.items" :key="item">{{ item }}</li>
+                  <li v-for="item in award.items" :key="item">
+                    <span class="elbow-char">└</span>
+                    <span class="item-text">{{ item }}</span>
+                  </li>
                 </ul>
               </div>
             </div>
