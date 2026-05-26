@@ -131,48 +131,48 @@ const projects = [
     name: 'LMS TE', 
     url: 'lms.trilogikaedutama.id', 
     year: '2026',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/lms-trilogika-16.9.png', 
     color: 'linear-gradient(135deg, #0e2a2a 0%, #041212 100%)'
   },
   { 
     name: 'Trilogika Edutama', 
     url: 'trilogikaedutama.id', 
     year: '2026',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/te-web.png', 
     color: 'linear-gradient(135deg, #222222 0%, #0a0a0a 100%)'
   },
   { 
-    name: 'LSP Parsi', 
+    name: 'LSP TE', 
     url: 'lsp.trilogikaedutama.id', 
     year: '2026',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/lsp-te.webp', 
     color: 'linear-gradient(135deg, #3d1b0d 0%, #170701 100%)'
   },
   { 
     name: 'Simico', 
-    url: 'simico.co.id', 
+    url: '#', 
     year: '2024',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/simico.jpg', 
     color: 'linear-gradient(135deg, #1e2f3d 0%, #0c151c 100%)'
   },
   { 
     name: 'Matador App', 
-    url: 'neurodiversity.community', 
+    url: '#', 
     year: '2024',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/matador.jpg', 
     color: 'linear-gradient(135deg, #321e42 0%, #150a1f 100%)'
   },
   { 
     name: 'Raja App', 
-    url: 'finedine.club', 
+    url: '#', 
     year: '2023',
-    mediaType: 'placeholder', 
-    mediaUrl: '', 
+    mediaType: 'image', 
+    mediaUrl: '/images/raja.jpg', 
     color: 'linear-gradient(135deg, #29241b 0%, #120f0a 100%)'
   },
   // { 
@@ -185,8 +185,8 @@ const projects = [
   // }
 ]
 
-// Project aktif yang sedang di-hover (default ELEMENTIS di index 1)
-const activeWorkIndex = ref(1)
+// Project aktif yang sedang di-hover (default Kibardjaya di index 0)
+const activeWorkIndex = ref(0)
 
 // Mengambil detail project aktif
 const activeProject = computed(() => projects[activeWorkIndex.value])
@@ -466,11 +466,9 @@ const handleMouseLeave = () => {
       <div class="footer-section">
         <span class="footer-label">Social Media</span>
         <div class="social-links">
-          <a href="#" target="_blank">Instagram</a>
-          <a href="#" target="_blank">Twitter</a>
-          <a href="#" target="_blank">LinkedIn</a>
-          <a href="#" target="_blank">GitHub</a>
-          <a href="#" target="_blank">Awwwards</a>
+          <a href="https://api.whatsapp.com/send/?phone=6281241248191&text=I%27m+just+visited+your+website&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
+          <a href="https://www.linkedin.com/in/acilworks/" target="_blank">LinkedIn</a>
+          <a href="https://github.com/acilworks" target="_blank">GitHub</a>
         </div>
       </div>
     </footer>
