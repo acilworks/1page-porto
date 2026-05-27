@@ -6,8 +6,8 @@ import { gsap } from 'gsap'
 const nameText = 'Ahmad Arief H.'
 const displayName = ref(nameText)
 
-const taglineLine1 = "It Ain't Much But"
-const taglineLine2 = "It's Honest Work"
+const taglineLine1 = "Not perfect, just" 
+const taglineLine2 = "constantly improving."
 const displayTagline1 = ref(taglineLine1)
 const displayTagline2 = ref(taglineLine2)
 
@@ -194,39 +194,29 @@ const activeProject = computed(() => projects[activeWorkIndex.value])
 // Data Penghargaan / Awards & Recognition
 const awards = [
   {
-    category: 'Awwwards of the Year (Nominee)',
-    items: ['1x Independent of the Year', '1x Developer Site of the Year', '1x E-commerce of the Year'],
+    category: 'Trilogika Edutama',
+    items: ['Full-Stack Developer Intern'],
     extra: false
   },
   {
-    category: 'Awwwards',
-    items: ['2x Site of the Day', '2x Developer Award', 'Young Jury'],
+    category: 'Kibardjaya',
+    items: ['Founder & Product Builder'],
     extra: false
   },
   {
-    category: 'CSSDA',
-    items: ['2x Website of the Day', '2x WOTM Nominee'],
+    category: 'Telkom Akses Innovation Awards 2024',
+    items: ['Regional IV Champion (Jateng-DIY)'],
     extra: false
   },
   {
-    category: 'FWA',
-    items: ['1x FWA of the Day'],
+    category: 'Telkom Akses',
+    items: ['Fiber Optic / Network Engineer'],
     extra: false
   },
   {
-    category: 'GSAP',
-    items: ['4x Site of the Day', '1x Site of the Week'],
-    extra: true
-  },
-  {
-    category: 'Codrops',
-    items: ['2x Webzibition', 'Developer Spotlight'],
-    extra: true
-  },
-  {
-    category: 'Muzli',
-    items: ['1x Picks Honor', 'LinkedIn Golden List'],
-    extra: true
+    category: 'Universitas Janabadra Yogyakarta',
+    items: ['Bachelor of Informatics Engineering'],
+    extra: false
   }
 ]
 
@@ -312,7 +302,7 @@ const handleMouseLeave = () => {
           {{ displayTagline1 }}<br>{{ displayTagline2 }}
         </div>
         <a href="#" class="mobile-awards-trigger" @click.prevent="showMobileAwardsModal = true">
-          Awards & Recognition
+          Experience & Milestones
         </a>
       </div>
     </div>
@@ -424,7 +414,7 @@ const handleMouseLeave = () => {
 
       <!-- Kolom Kanan: Daftar Penghargaan (Awards) (Desktop Only) -->
       <section class="sidebar-awards desktop-only">
-        <h2 class="section-title">Awards & Recognition (23)</h2>
+        <h2 class="section-title">Experience & Milestones</h2>
         <div class="awards-list">
           <div
             v-for="award in visibleAwards"
@@ -437,16 +427,16 @@ const handleMouseLeave = () => {
             </ul>
           </div>
         </div>
-        <button class="toggle-awards-btn" @click="showAllAwards = !showAllAwards">
+        <!-- <button class="toggle-awards-btn" @click="showAllAwards = !showAllAwards">
           {{ showAllAwards ? '- See Less' : '+ See More' }}
-        </button>
+        </button> -->
       </section>
 
     </main>
 
     <!-- Footer Utama -->
      <section class="mobile-hire-me mobile-only">
-        <span class="hire-me-label">Hire Me :)</span><br>
+        <span class="hire-me-label">Open for Collaboration</span><br>
         <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
           ahmadariefharwoko@gmail.com
         </a>
@@ -455,10 +445,10 @@ const handleMouseLeave = () => {
       
       <div class="footer-section">
         <span class="footer-label">About</span>
-        <p>Independent creative developer, based in Indonesia. Focus on building websites with motion and interaction.</p>
+        <p>I’m a full-stack developer with a background in networking, passionate about building websites and digital products that are functional, responsive, and enjoyable to use.</p>
       </div>
       <div class="footer-section desktop-only">
-        <span class="footer-label">Hire Me :)</span><br>
+        <span class="footer-label">Open for Collaboration</span><br>
         <a href="mailto:ahmadariefharwoko@gmail.com" class="email-link">
           ahmadariefharwoko@gmail.com
         </a>
@@ -466,7 +456,7 @@ const handleMouseLeave = () => {
       <div class="footer-section">
         <span class="footer-label">Social Media</span>
         <div class="social-links">
-          <a href="https://api.whatsapp.com/send/?phone=6281241248191&text=I%27m+just+visited+your+website&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
+          <a href="https://api.whatsapp.com/send/?phone=6281241248191&text=Hi%20Acil,%20I%20checked%20out%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project%20with%20you." target="_blank">WhatsApp</a>
           <a href="https://www.linkedin.com/in/acilworks/" target="_blank">LinkedIn</a>
           <a href="https://github.com/acilworks" target="_blank">GitHub</a>
         </div>
@@ -480,7 +470,7 @@ const handleMouseLeave = () => {
           <div class="modal-header-container">
             <!-- <h1 class="modal-title" @click="triggerNameScramble">{{ displayName }}</h1> -->
             <div class="modal-subheader">
-              <span class="modal-section-title">Awards & Recognition (23)</span>
+              <span class="modal-section-title">Experience & Milestones</span>
               <button class="close-modal-btn" @click="showMobileAwardsModal = false">Close</button>
             </div>
           </div>
@@ -494,7 +484,7 @@ const handleMouseLeave = () => {
                 <h3 class="award-title">{{ award.category }}</h3>
                 <ul class="award-details">
                   <li v-for="item in award.items" :key="item">
-                    <span class="elbow-char">└</span>
+                    <!-- <span class="elbow-char">└</span> -->
                     <span class="item-text">{{ item }}</span>
                   </li>
                 </ul>

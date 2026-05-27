@@ -116,7 +116,7 @@ a {
   font-size: 0.70rem;
   /* text-transform: uppercase; */
   letter-spacing: 0.05em;
-  color: var(--text-muted);
+  color: var(--text-color);
   margin-bottom: 8px;
   font-weight: 600;
 }
@@ -412,7 +412,7 @@ a {
 .award-title {
   font-size: 0.65rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--text-muted);
 }
 
 .award-details {
@@ -491,6 +491,8 @@ a {
 
 .footer-section p {
   color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 400;
 }
 
 .footer-section .footer-label {
@@ -500,6 +502,7 @@ a {
   /* margin-bottom: 4px; */
 
 }
+
 
 .email-link {
   font-weight: 500;
@@ -712,7 +715,7 @@ a {
   }
 
   .mobile-hire-me .hire-me-label {
-    color: var(--text-muted);
+    color: var(--text-color);
     font-weight: 600;
   }
 
