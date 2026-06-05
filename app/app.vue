@@ -204,7 +204,7 @@ const awards = [
     extra: false
   },
   {
-    category: 'Telkom Akses Innovation Awards 2024',
+    category: 'Telkom Akses Innovation Awards 2022',
     items: ['Regional IV Champion (Jateng-DIY)'],
     extra: false
   },
